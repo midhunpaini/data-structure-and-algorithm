@@ -42,6 +42,23 @@ class LinkedList:
                 break
             current = current.next
 
+    def reverse(self):
+        if self.head is None:
+            return
+        
+        current = self.head
+        self.tail = current
+        prev = None
+        
+        while current:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+        self.head = prev
+
+            
+
     def delete(self, data):
         if self.head is None:
             return
@@ -59,7 +76,33 @@ class LinkedList:
                     current.next = current.next.next
                     return
             current = current.next
-                   
+
+
+
+    def remove_dups(self):
+        if self.head is None:
+            return
+        s = set()
+        current = self.head
+        s.add(current.data)
+        prev = current
+        current = current.next
+
+        while current:
+            if current.data in s:
+                if current == self.tail:
+                    self.tail = prev
+                    prev.next = None
+                    break
+                else:
+                    prev.next = current.next
+            else:
+                s.add(current.data)
+                prev = current
+
+            current = current.next
+            
+
         
         
     def display(self):
@@ -69,16 +112,18 @@ class LinkedList:
             print(current.data, end=', ')
             current = current.next
 
-
 linked_list = LinkedList()
 
-for i in range(1, 6):
+for i in range(10):
     linked_list.append(i)
 
-linked_list.insert(5, 25)
-linked_list.prepend(100)
-linked_list.prepend(99)
-print(linked_list.tail.data,' :tail')
 linked_list.display()
+linked_list.reverse()
+print()
+linked_list.display()
+
+
+
+
 
 
